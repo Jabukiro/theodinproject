@@ -1,22 +1,16 @@
 
 var container = document.querySelector("div.grid-container");
-var pass = 0;
 function addColorChangeEventListeners(parent, before, after){
-    pass = pass > 255 ? 255 : pass;
     parent.addEventListener("mouseover", function (){
         if (event.target.className != 'grid-container')
         {
-            r = Math.floor(Math.random()*(255-pass));
-            g = Math.floor(Math.random()*(255-pass));
-            b = Math.floor(Math.random()*(255-pass));
+            r = Math.round(Math.random()*(255));
+            g = Math.round(Math.random()*(255));
+            b = Math.round(Math.random()*(255));
             event.target.style['background-color'] = 'rgb('+r+', '+g+', '+b+')';
-            pass +=2.55;
-        }
-    })
-    parent.addEventListener("mouseout", function (){
-        if (event.target.className != 'grid-container')
-        {
-            event.target.style['background-color'] = after;
+            //Returns the brightness ratio
+            brightness = Number( getComputedStyle(event.target).getPropertyValue("filter").match(/[0-1](.[0-9])*/)[0] )
+            event.target.style.filter = "brightness("+String( brightness-0.2 )+")";
         }
     })
 }
